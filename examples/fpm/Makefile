@@ -6,6 +6,8 @@ TARDIR=$(NAME)-$(VERSION)
 TARBALL=$(TARDIR).tar.gz
 DOWNLOAD=http://ftp.ruby-lang.org/pub/ruby/$(MAJOR_VERSION)/$(TARBALL)
 
+POSTINSTALL= ./postinstall.sh
+
 PREFIX=/opt/fpm
 
 PACKAGE_NAME=fpm
@@ -32,4 +34,4 @@ $(TARDIR): $(TARBALL)
 
 .PHONY: deb
 deb: $(TARDIR)
-	$(PREFIX)/bin/fpm -s dir -t deb -v $(PACKAGE_VERSION) -n $(PACKAGE_NAME) -a $(ARCHITECTURE) -C $(PREFIX) .
+	$(PREFIX)/bin/fpm -s dir -t deb -v $(PACKAGE_VERSION) -n $(PACKAGE_NAME) -a $(ARCHITECTURE) --post-install $(POSTINSTALL) -C $(PREFIX) .
